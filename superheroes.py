@@ -1,12 +1,19 @@
 class Hero:
+
+    name = ''
+    startingHealth = 100
+    currentHealth = 100
+    deaths = 0
+
     def __init__(self, name, startingHealth = 100):
         ''' 
         Initialize these values as instance variables:
         '''
         self.name = name
         self.startingHealth = startingHealth
-        self.current_health = startingHealth
+        self.currentHealth = startingHealth
         self.abilities = list()
+        self.deaths = 0 
             
     def addAbility(self, ability):
         '''Adds Abilities to List'''
@@ -33,7 +40,16 @@ class Hero:
         This method should update self.current_health 
         with the damage that is passed in.
         '''
-        pass
+        if self.currentHealth > 0:
+            self.currentHealth -= damage
+        
+        if self.currentHealth <= 0:
+            self.deaths += 1
+
+            return -1
+
+        return 0
+        
         
     def isAlive(self):
         '''
