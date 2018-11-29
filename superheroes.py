@@ -1,13 +1,17 @@
 class Hero:
     def __init__(self, name, startingHealth = 100):
+        ''' 
+        Initialize these values as instance variables:
         '''
-        Initalize Superhero class properties
-        '''
-        pass
+        self.name = name
+        self.startingHealth = startingHealth
+        self.current_health = startingHealth
+        self.abilities = list()
             
     def addAbility(self, ability):
         '''Adds Abilities to List'''
-        pass
+        self.abilities.append(ability)
+        
         
     def attack(self):
         ''' 
@@ -17,7 +21,12 @@ class Hero:
         on every ability in self.abilities and
         return the total.
         '''
-        pass
+        attackStr = 0
+
+        for ability in self.abilities:
+            attackStr += ability.attack
+
+        return attackStr
         
     def takeDamage(self, damage):
         ''' 
