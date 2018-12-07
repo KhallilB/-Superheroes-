@@ -99,9 +99,7 @@ class Weapon(Ability):
         between 0 and the full attack power of the weapon.
         Hint: The attack power is inherited.
         """
-        # Use random.randint(a, b) to select a random attack value.
         attack = random.randint(0, self.attackPower)
-        # Return attack value between 0 and the full attack.
         return attack
 
 
@@ -156,8 +154,7 @@ class Team:
         totalTeamPower = 0
 
         for heros in self.heroes:
-            # heros.attack() collects attack strength
-            totalTeamPowe += heros.attack()
+            totalTeamPower += heros.attack()
 
         kills = otherTeam.defend(totalTeamPower)
 
@@ -173,7 +170,6 @@ class Team:
         totalTeamDefense = 0
 
         for hero in self.heroes:
-            # hero.defend() collects all defense_strength
             totalTeamDefense += hero.defend()
 
         extraDamage = damageAmt - totalTeamDefense
