@@ -2,19 +2,19 @@ import random
 
 
 class Ability:
-    def __init__(self, name, attackPower):
+    def __init__(self, name, attack_power):
         self.name = name
-        self.attackPower = int(attackPower)
+        self.attack_power = int(attack_power)
 
     def attack(self):
-        minAttack = self.attackPower // 2
+        min_attack = self.attack_power // 2
         # Use random.randint(a, b) to select a random attack value.
-        attack = random.randint(minAttack, self.attackPower)
+        attack = random.randint(min_attack, self.attack_power)
         # Return attack value between 0 and the full attack.
         return attack
 
-    def updateAttack(self, attackPower):
-        self.attackPower = attackPower
+    def update_attack(self, attack_power):
+        self.attack_power = attack_power
 
 
 class Hero:
@@ -23,33 +23,33 @@ class Hero:
         self.name = name
         self.weapons = list()
         self.armors = list()
-        self.startHealth = health
+        self.start_health = health
         self.health = health
         self.deaths = 0
         self.kills = 0
 
-    def addAbility(self, ability):
+    def add_ability(self, ability):
         # Append ability to self.abilities
         self.abilities.append(ability)
 
-    def addArmor(self, armor):
+    def add_armor(self, armor):
         # Append ability to self.abilities
         self.armors.append(armor)
 
-    def addWeapons(self, weapon):
+    def add_weapons(self, weapon):
         # Append ability to self.abilities
         self.weapons.append(weapon)
 
     def attack(self):
         # Call the attack method on every ability in our ability list
         # Add up and return the total of all attacks
-        allAttacks = 0
+        all_attacks = 0
 
         for ability in self.abilities:
 
-            allAttacks += ability.attack()
+            all_attacks += ability.attack()
 
-        return allAttacks
+        return all_attacks
 
     def defend(self):
         """
@@ -72,19 +72,19 @@ class Hero:
         else:
             return defense
 
-    def takeDamage(self, damagePoints):
+    def take_damage(self, damage_points):
         """
         This method should subtract the damage amount from the 
         hero's health. 
         If the hero dies update number of deaths.
         """
 
-        self.health -= damagePoints
+        self.health -= damage_points
 
         if self.health <= 0:
             self.deaths += 1
 
-    def addKill(self, kills):
+    def add_kill(self, kills):
         """
         This method should add the number of kills to self.kills
         """
@@ -98,21 +98,21 @@ class Weapon(Ability):
         between 0 and the full attack power of the weapon.
         Hint: The attack power is inherited.
         """
-        attack = random.randint(0, self.attackPower)
+        attack = random.randint(0, self.attack_power)
         return attack
 
 
 class Team:
-    def __init__(self, teamName):
+    def __init__(self, team_name):
         """Instantiate resources."""
-        self.name = teamName
+        self.name = team_name
         self.heroes = list()
 
-    def addHero(self, Hero):
+    def add_hero(self, Hero):
         """Add Hero object to heroes list."""
         self.heroes.append(Hero)
 
-    def removeHero(self, name):
+    def remove_Hero(self, name):
         """
         Remove hero from heroes list.
         If Hero isn't found return 0.
@@ -126,7 +126,7 @@ class Team:
             else:
                 return 0
 
-    def findHero(self, name):
+    def find_Hero(self, name):
         """
         Find and return hero from heroes list.
         If Hero isn't found return 0.
@@ -140,7 +140,7 @@ class Team:
             else:
                 return 0
 
-    def seeHeroes(self):
+    def see_Heroes(self):
         """Print out all heroes to the console."""
         for hero in self.heroes:
             print(hero.name)
@@ -150,36 +150,36 @@ class Team:
         This method should total our teams attack strength and call the defend() method on the rival team that is passed in.
         It should call add_kill() on each hero with the number of kills made.
         """
-        totalTeamPower = 0
+        total_team_power = 0
 
         for heros in self.heroes:
-            totalTeamPower += heros.attack()
+            total_team_power += heros.attack()
 
-        kills = otherTeam.defend(totalTeamPower)
+        kills = otherTeam.defend(total_team_power)
 
         for heros in self.heroes:
-            heros.addKill(kills)
+            heros.add_kill(kills)
 
-    def defend(self, damageAmt):
+    def defend(self, damage_amt):
         """
         This method should calculate our team's total defense.
         Any damage in excess of our team's total defense should be evenly distributed amongst all heroes with the deal_damage() method.
         Return number of heroes killed in attack.
         """
-        totalTeamDefense = 0
+        total_team_defense = 0
 
         for hero in self.heroes:
-            totalTeamDefense += hero.defend()
+            total_team_defense += hero.defend()
 
-        extraDamage = damageAmt - totalTeamDefense
+        ex_damage = damage_amt - total_team_defense
 
-        if extraDamage > 0:
-            killAmount = self.dealDamage(extraDamage)
-            return killAmount
+        if ex_damage > 0:
+            kill_amt = self.deal_damage(ex_damage)
+            return kill_amt
         else:
             return 0
 
-    def dealDamage(self, damage):
+    def deal_damage(self, damage):
         """
         Divide the total damage amongst all heroes.
         Return the number of heros that died in attack.
@@ -193,12 +193,12 @@ class Team:
             even = damage // len(self.heroes)
 
         for hero in self.heroes:
-            hero.takeDamage(even)
+            hero.take_damage(even)
             if hero.health <= 0:
                 died += 1
         return died
 
-    def reviveHeroes(self, health=100):
+    def revive_heroes(self, health=100):
         """
         This method should reset all heroes health to their
         original starting value.
@@ -217,13 +217,13 @@ class Team:
             print("{} kills:{} death: {} ".format(
                 hero.name, hero.kills, hero.deaths))
 
-    def updateKills(self):
+    def update_kills(self):
         """
         This method should update each hero when there is a team kill.
         """
         for hero in self.heroes:
             if hero.health <= 0:
-                hero.addKill()
+                hero.add_kill()
 
 
 class Armor:
@@ -237,107 +237,107 @@ class Armor:
         Return a random value between 0 and the 
         initialized defend strength.
         """
-        defendStrength = random.randint(0, int(self.defense))
+        defend_strength = random.randint(0, int(self.defense))
 
-        return defendStrength
+        return defend_strength
 
 
 class Arena:
     def __init__(self):
-        self.teamOne = None
-        self.teamTwo = None
+        self.team_one = None
+        self.team_two = None
 
-    def buildTeamOne(self):
+    def build_team_one(self):
         """
         This method should allow a user to build team one.
         """
-        teamOneName = input("Enter a name for Team One: \n")
-        self.teamOne = Team(teamOneName)
+        team_one_name = input("Enter a name for Team One: \n")
+        self.team_one = Team(team_one_name)
 
-        teamOne = True
+        team_one = True
         index = 0
 
-        while teamOne:
-            self.teamOne.addHero(
+        while team_one:
+            self.team_one.add_hero(
                 Hero(input("Create A Name for a New Hero: \n")))
-            self.teamOne.heroes[index].addAbility(Ability(input(
+            self.team_one.heroes[index].add_ability(Ability(input(
                 "Name your Heros ability: "), input("How powerful? 200(weak)- 600(strong): \n")))
-            self.teamOne.heroes[index].addArmor(Armor(input("Name your new armor:"), input(
+            self.team_one.heroes[index].add_armor(Armor(input("Name your new armor:"), input(
                 "How strong is it? 50(weak)- 200(strong): \n")))
 
             end = input(
                 "To add more heros type \"NEW\" else type any key and press enter: \n")
 
             if end == "NEW":
-                teamOne = True
+                team_one = True
             else:
-                teamOne = False
+                team_one = False
 
             index += 1
 
-    def buildTeamTwo(self):
+    def build_team_two(self):
         """
         This method should allow user to build team two.
         """
-        teamTwoName = input("\nEnter a name for Team Two: \n")
-        self.teamTwo = Team(teamTwoName)
+        team_two_name = input("\nEnter a name for Team Two: \n")
+        self.team_two = Team(team_two_name)
 
-        teamTwo = True
+        team_two = True
         index = 0
 
-        while teamTwo:
-            self.teamTwo.addHero(
+        while team_two:
+            self.team_two.add_hero(
                 Hero(input("Create A Name for a New Hero: \n")))
-            self.teamTwo.heroes[index].addAbility(Ability(input(
+            self.team_two.heroes[index].add_ability(Ability(input(
                 "Name your Heros ability: "), input("How powerful? 200(meh)- 600(crazy powerful): \n")))
-            self.teamTwo.heroes[index].addArmor(Armor(input("Name your new armor: "), input(
+            self.team_two.heroes[index].add_armor(Armor(input("Name your new armor: "), input(
                 "How strong is it? 50(meh)- 200(crazy strong): \n")))
 
             end = input(
                 "To add more heros type \"NEW\" else type any key and press enter: \n")
 
             if end == "NEW":
-                teamTwo = True
+                team_two = True
             else:
-                teamTwo = False
+                team_two = False
 
             index += 1
 
-    def teamBattle(self):
+    def team_battle(self):
         """
         This method should continue to battle teams until 
         one or both teams are dead.
         """
-        self.teamOne.attack(self.teamTwo)
-        self.teamTwo.attack(self.teamOne)
+        self.team_one.attack(self.team_two)
+        self.team_two.attack(self.team_one)
 
-    def showStats(self):
+    def show_stats(self):
         """
         This method should print out the battle statistics 
         including each heroes kill/death ratio.
         """
-        self.teamOne.stats()
-        self.teamTwo.stats()
+        self.team_one.stats()
+        self.team_two.stats()
 
 
 if __name__ == "__main__":
-    gameIsRunning = True
+    game_is_running = True
 
     arena = Arena()
 
-    arena.buildTeamOne()
-    arena.buildTeamTwo()
+    arena.build_team_one()
+    arena.build_team_two()
 
-    while gameIsRunning:
+    while game_is_running:
 
-        arena.teamBattle()
-        arena.showStats()
+        arena.team_battle()
+        arena.show_stats()
         playAgain = input("\nPlay Again? Y or N: ")
 
         # Check for Player Input
         if playAgain.lower() == "n":
-            gameIsRunning = False
+            game_is_running = False
 
         else:
             # Revive heroes to play again
-            arena.teamOne.reviveHeroes()
+            arena.team_one.revive_heroes()
