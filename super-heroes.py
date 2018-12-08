@@ -23,7 +23,7 @@ class Hero:
         self.name = name
         self.weapons = list()
         self.armors = list()
-        self.start_health = health
+        self.startHealth = health
         self.health = health
         self.deaths = 0
         self.kills = 0
@@ -47,7 +47,6 @@ class Hero:
 
         for ability in self.abilities:
 
-                # all_attacks += Ability.attack(ability)
             allAttacks += ability.attack()
 
         return allAttacks
@@ -218,7 +217,7 @@ class Team:
             print("{} kills:{} death: {} ".format(
                 hero.name, hero.kills, hero.deaths))
 
-    def update_kills(self):
+    def updateKills(self):
         """
         This method should update each hero when there is a team kill.
         """
